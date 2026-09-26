@@ -1,4 +1,9 @@
 export const en = {
+  homeSimpleTitle: 'Connect with home.', homeSimpleSubtitle: 'Choose something to do together.',
+  homeShare: 'Share a story', homeShareHint: 'One question. A family memory.',
+  homeChildhood: 'Childhood', homeChildhoodHint: 'Games, food & happy memories.',
+  homeLanguage: 'Language demo', homeLanguageHint: 'Pular preview · no audio yet',
+  homeAbout: 'About Our Guinea', homeProgress: 'Demo explored',
   brand: 'Our Guinea', navHome: 'Home', navFamily: 'Family', language: 'Interface language',
   english: 'English', french: 'Français', loading: 'Opening your space…',
   eyebrow: 'LANGUAGE · FAMILY · BELONGING',

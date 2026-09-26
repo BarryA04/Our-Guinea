@@ -1,60 +1,86 @@
-import { StyleSheet, Text, View } from 'react-native';
-import { Body, Button, Heading, Kicker, Label, Surface, ui } from '../components';
+import { useState, type ComponentProps } from 'react';
+import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Body, Kicker, Surface } from '../components';
 import type { Translator } from '../i18n';
 import type { SavedState } from '../state';
 import { theme } from '../theme';
-export function Home({ t, data, wide, start, family }: { t: Translator; data: SavedState; wide: boolean; start: () => void; family: (index: number) => void }) {
-  return <>
-    <View style={[s.hero, wide && { flexDirection: 'row', padding: 40 }]}>
-      <View style={{ flex: 1, gap: 22 }}>
-        <Kicker light>{t('eyebrow')}</Kicker>
-        <Heading hero light>{t('heroTitle')}</Heading>
-        <Body light>{t('heroBody')}</Body>
-        <View style={s.goldRule} />
-        <Body small light>{t('heroNote')}</Body>
-      </View>
-      <View style={[s.feature, wide && { flex: 0.85 }]}>
-        <Kicker>{t('introKicker')}</Kicker>
-        <Heading>{t('introTitle')}</Heading>
-        <Label>{t('reviewShort')}</Label>
-        <Body>{t('introBody')}</Body>
-        <Text style={s.meta}>{t('module')}</Text>
-        <Text style={s.meta}>{t('duration')}</Text>
-        <Button label={t(data.demoComplete ? 'replay' : 'start')} onPress={start} />
-      </View>
-    </View>
-    <View style={[s.lower, wide && { flexDirection: 'row' }]}>
-      <View style={{ flex: 1.35, gap: 18 }}>
-        <Kicker>{t('familyKicker')}</Kicker>
-        <Heading>{t('familyTitle')}</Heading>
-        <Body>{t('familyBody')}</Body>
-        <Button label={t('familyOpen')} secondary onPress={() => family(0)} />
-        <View style={s.childhood}>
-          <Text accessibilityRole="header" style={s.childTitle}>{t('childhood')}</Text>
-          <Body small>{t('childhoodBody')}</Body>
-          <Button label={t('childhoodOpen')} secondary onPress={() => family(3)} />
-        </View>
-      </View>
-      <Surface style={{ flex: 1, backgroundColor: '#EFEBDD' }}>
-        <Kicker>{t('progressTitle')}</Kicker>
-        <Text style={s.progressNumber}>{data.demoComplete ? '01' : '00'}<Text style={s.progressTotal}> / 01</Text></Text>
-        <Body>{t(data.demoComplete ? 'progressComplete' : 'progressEmpty')}</Body>
-        <View style={[ui.progressTrack, { flex: 0, height: 6, backgroundColor: data.demoComplete ? theme.color.forest : theme.color.line }]} />
-        <Body small>{t(data.mission === 'shared' ? 'missionDone' : data.mission === 'planned' ? 'missionPlanned' : 'missionEmpty')}</Body>
-        <Body small>{t('noMastery')}</Body>
-      </Surface>
-    </View>
-    <View style={s.inclusive}><Kicker>{t('inclusive')}</Kicker><Body small>{t('inclusiveBody')}</Body></View>
-  </>;
+
+type IconName = ComponentProps<typeof Ionicons>['name'];
+function Icon({ name, color, size = 32 }: { name: IconName; color: string; size?: number }) {
+  return <View accessible={false} aria-hidden importantForAccessibility="no-hide-descendants"><Ionicons name={name} color={color} size={size} /></View>;
 }
+export function Home({ t, data, wide, start, family }: { t: Translator; data: SavedState; wide: boolean; start: () => void; family: (index: number) => void }) {
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const { fontScale } = useWindowDimensions();
+  return <View style={[s.home, wide && { maxWidth: 820 }]}>
+    <View style={s.intro}>
+      <Text accessibilityRole="header" style={[s.title, wide && { fontSize: 42, lineHeight: 50 }]}>{t('homeSimpleTitle')}</Text>
+      <Body>{t('homeSimpleSubtitle')}</Body>
+    </View>
+
+    <Pressable accessibilityRole="button" accessibilityLabel={t('homeShare')} accessibilityHint={t('homeShareHint')}
+      onPress={() => family(0)} style={({ pressed }) => [s.primary, pressed && s.pressed]}>
+      <View style={s.primaryTop}>
+        <View style={s.primaryIcon}><Icon name="chatbubbles-outline" color={c.cream} size={42} /></View>
+        <Icon name="arrow-forward" color={c.cream} size={26} />
+      </View>
+      <Text style={s.primaryTitle}>{t('homeShare')}</Text>
+      <Text style={s.primaryHint}>{t('homeShareHint')}</Text>
+    </Pressable>
+
+    <View style={[s.options, fontScale > 1.3 && { flexDirection: 'column' }]}>
+      <Pressable accessibilityRole="button" accessibilityLabel={t('homeChildhood')} accessibilityHint={t('homeChildhoodHint')}
+        onPress={() => family(3)} style={({ pressed }) => [s.option, s.childhood, pressed && s.pressed]}>
+        <View style={s.iconRow}><Icon name="sunny-outline" color={c.forest} /><Icon name="chevron-forward" color={c.forest} size={18} /></View>
+        <Text style={s.optionTitle}>{t('homeChildhood')}</Text>
+        <Text style={s.optionHint}>{t('homeChildhoodHint')}</Text>
+      </Pressable>
+      <Pressable accessibilityRole="button" accessibilityLabel={t('homeLanguage')} accessibilityHint={t('homeLanguageHint')}
+        onPress={start} style={({ pressed }) => [s.option, pressed && s.pressed]}>
+        <View style={s.iconRow}><Icon name="headset-outline" color={c.forest} /><Icon name="chevron-forward" color={c.forest} size={18} /></View>
+        <Text style={s.optionTitle}>{t('homeLanguage')}</Text>
+        <Text style={s.optionHint}>{t('homeLanguageHint')}</Text>
+      </Pressable>
+    </View>
+
+    <View style={s.detailsRow}>
+      <Pressable accessibilityRole="button" accessibilityState={{ expanded: aboutOpen }} aria-expanded={aboutOpen}
+        onPress={() => setAboutOpen(!aboutOpen)} style={({ pressed }) => [s.about, pressed && s.pressed]}>
+        <Icon name="information-circle-outline" color={c.muted} size={20} />
+        <Text style={s.aboutText}>{t('homeAbout')}</Text>
+        <Icon name={aboutOpen ? 'chevron-up' : 'chevron-down'} color={c.muted} size={16} />
+      </Pressable>
+      {data.demoComplete && <View style={s.saved}><Icon name="checkmark-circle-outline" color={c.forest} size={18} /><Text style={s.savedText}>{t('homeProgress')}</Text></View>}
+    </View>
+    {aboutOpen && <Surface>
+      <Body>{t('heroBody')}</Body>
+      <Kicker>{t('inclusive')}</Kicker><Body small>{t('inclusiveBody')}</Body>
+      <Body small>{t('previewNote')}</Body><Body small>{t('privacy')}</Body>
+      {data.demoComplete && <><Kicker>{t('progressTitle')}</Kicker><Body small>{t('progressComplete')}</Body><Body small>{t(data.mission === 'shared' ? 'missionDone' : 'missionPlanned')}</Body><Body small>{t('noMastery')}</Body></>}
+    </Surface>}
+  </View>;
+}
+const c = theme.color;
 const s = StyleSheet.create({
-  hero: { backgroundColor: theme.color.forest, borderRadius: 28, padding: 24, gap: 32 },
-  feature: { backgroundColor: theme.color.cream, borderRadius: 20, padding: 24, gap: 16 },
-  goldRule: { width: 56, height: 3, backgroundColor: theme.color.gold },
-  meta: { color: theme.color.muted, fontSize: 13, lineHeight: 20 },
-  lower: { gap: 32, paddingVertical: 12 },
-  childhood: { gap: 12, borderTopWidth: 1, borderTopColor: theme.color.line, paddingTop: 20 },
-  childTitle: { color: theme.color.forest, fontSize: 19, fontWeight: '600' },
-  progressNumber: { color: theme.color.forest, fontSize: 56, fontWeight: '300' }, progressTotal: { fontSize: 22, color: theme.color.muted },
-  inclusive: { borderTopWidth: 1, borderColor: theme.color.line, paddingTop: 24, gap: 8 },
+  home: { width: '100%', alignSelf: 'center', gap: 16, paddingBottom: 24 },
+  intro: { gap: 6, paddingTop: 8, paddingBottom: 8 },
+  title: { fontSize: 32, lineHeight: 39, fontWeight: '600', color: c.forest },
+  primary: { backgroundColor: c.forest, padding: 24, borderRadius: 24, gap: 10, minHeight: 190 },
+  primaryTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 },
+  primaryIcon: { width: 62, height: 58, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: '#2B5D4D' },
+  primaryTitle: { color: c.white, fontSize: 27, lineHeight: 34, fontWeight: '600' },
+  primaryHint: { color: '#E4EADC', fontSize: 15, lineHeight: 23 },
+  options: { flexDirection: 'row', gap: 12 },
+  option: { flex: 1, backgroundColor: c.white, borderWidth: 1, borderColor: c.line, borderRadius: 20, padding: 16, gap: 10, minHeight: 168 },
+  childhood: { backgroundColor: '#F1E3C4', borderColor: '#F1E3C4' },
+  iconRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 },
+  optionTitle: { color: c.forest, fontSize: 19, lineHeight: 25, fontWeight: '600' },
+  optionHint: { color: '#48534A', fontSize: 13, lineHeight: 20 },
+  detailsRow: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 4 },
+  about: { flexDirection: 'row', alignItems: 'center', minHeight: 48, gap: 8, paddingVertical: 10 },
+  aboutText: { color: c.muted, fontSize: 14, lineHeight: 22, flexShrink: 1 },
+  saved: { flexDirection: 'row', alignItems: 'center', gap: 6, paddingVertical: 8 },
+  savedText: { color: c.forest, fontSize: 12, lineHeight: 20 },
+  pressed: { opacity: 0.78 },
 });

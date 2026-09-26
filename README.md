@@ -18,8 +18,9 @@ For Android, run `npm.cmd start`, connect the phone and PC to the same Wi-Fi, an
 `npm.cmd run typecheck` checks TypeScript. `npm.cmd test` runs the local state/content checks once implemented. Export with `npx.cmd expo export --platform web` or `--platform android`. Test the real phone separately. Browser checks do not prove native audio or storage behavior.
 
 ## Recovery
-No destructive Git commands. The original implementation is preserved in `.checkpoints/before-vertical-slice-2026-09-27.zip`; extract into a separate folder to compare or recover, rather than overwriting current files. Git has no configured identity/commits. Configure an author deliberately before making commits.
+No destructive Git commands. The original implementation is preserved in `.checkpoints/before-vertical-slice-2026-09-27.zip`; extract into a separate folder to compare or recover, rather than overwriting current files. The original version is also preserved in Git commit 3a06822. The project repository is https://github.com/BarryA04/Our-Guinea. Git uses BarryA04 and the verified GitHub noreply address for project commits; no global identity is changed.
 
 If the app breaks, stop adding features, inspect the first actual error, compare with the checkpoint, make the smallest fix, then rerun checks and the browser. Do not use npm audit fix --force. Dependencies previously reported moderate vulnerabilities; review before release.
 
 The new slice is a content-labelled demonstration until authentic Pular material is reviewed. No accounts or family recordings. Local progress may be lost when app/browser data is cleared; private browsing or denied storage may prevent saving.
+

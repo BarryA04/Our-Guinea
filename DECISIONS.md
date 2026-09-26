@@ -8,3 +8,7 @@
 - No fake sound, fake play progress or fabricated speaker identity. Audio placeholder explains missing content and exposes the text demo.
 - Persist only language, completed demo IDs and family-mission status. Replaying must not inflate progress. No cloud services or saved family answers.
 - Keep small typed local navigation rather than adding a routing framework for this slice. Native back and browser back are to be supported.
+
+- 2026-09-27: Superseding the earlier no-commits note, preserve the existing prototype in commit 3a06822 before simplifying Home. Use the user-provided BarryA04/Our-Guinea repository and verified GitHub noreply author locally.
+- Home feedback: too much text and too many simultaneous messages. Prioritize family storytelling, retain the childhood shortcut and clearly labelled language preview, add Ionicons, and disclose longer explanations through About. No new child accounts or unverified cultural imagery.
+- Repair the existing Node test command and remove leftover TypeScript assertions from the .mjs test file so validation runs.

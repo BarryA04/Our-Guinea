@@ -18,3 +18,8 @@
 - Physical Android verification of the new slice; device testing does not follow from web tests.
 - Resolve dependency audit findings before release; no forced upgrades.
 - Consider 10–20 reviewed content items, more languages, private memories after validation.
+
+## Home simplification — 2026-09-27
+- Complete: short bilingual Home, three visual choices, expandable About, preserved activity routes.
+- Verified: TypeScript, nine state/content/locale tests, web and Android bundle exports; English/French layouts at 360/390/430px without horizontal overflow; story and childhood shortcuts, About expansion and language preview entry.
+- Physical Android testing remains outstanding; exporting an Android bundle is not device verification.

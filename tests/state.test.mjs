@@ -36,14 +36,14 @@ test('demo feedback has exactly one intended correct choice', () => {
 });
 test('both locales cover every interface key and interpolation token', () => {
   assert.deepEqual(Object.keys(fr).sort(), Object.keys(en).sort());
-  for (const key of Object.keys(en) as (keyof typeof en)[]) {
+  for (const key of Object.keys(en)) {
     assert.ok(fr[key].trim());
     assert.deepEqual(fr[key].match(/\{\w+\}/g), en[key].match(/\{\w+\}/g));
   }
 });
 test('all six original questions retain two follow-ups in both languages', () => {
   assert.equal(familyPrompts.length, 6);
-  for (const item of familyPrompts) for (const lang of ['en', 'fr'] as const) {
+  for (const item of familyPrompts) for (const lang of ['en', 'fr']) {
     assert.equal(item[lang].followUps.length, 2);
     assert.ok(item[lang].question.length > 0);
   }

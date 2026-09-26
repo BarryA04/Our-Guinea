@@ -1,5 +1,10 @@
 import type { TranslationKey } from './en';
 export const fr: Record<TranslationKey, string> = {
+  homeSimpleTitle: 'Retrouvons nos racines.', homeSimpleSubtitle: 'Choisissez une activité à partager.',
+  homeShare: 'Partager une histoire', homeShareHint: 'Une question. Un souvenir en famille.',
+  homeChildhood: 'L’enfance', homeChildhoodHint: 'Jeux, plats et bons souvenirs.',
+  homeLanguage: 'Démo de langue', homeLanguageHint: 'Aperçu du pular · sans audio',
+  homeAbout: 'À propos de Our Guinea', homeProgress: 'Démo explorée',
   brand: 'Our Guinea', navHome: 'Accueil', navFamily: 'Famille', language: 'Langue de l’interface',
   english: 'English', french: 'Français', loading: 'Ouverture de votre espace…',
   eyebrow: 'LANGUE · FAMILLE · LIENS', heroTitle: 'Un peu plus près\nde nos racines.',

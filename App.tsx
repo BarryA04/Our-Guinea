@@ -50,10 +50,10 @@ function OurGuinea() {
             </Pressable>)}
           </View>
         </View>
-        <View style={s.nav}>
-          <Pressable accessibilityRole="button" accessibilityState={{ selected: route === 'home' }} onPress={() => navigate('home')} style={[s.navButton, route === 'home' && s.navActive]}><Text style={s.navText}>{t('navHome')}</Text></Pressable>
+        {route !== 'home' && <View style={s.nav}>
+          <Pressable accessibilityRole="button" onPress={() => navigate('home')} style={s.navButton}><Text style={s.navText}>{t('navHome')}</Text></Pressable>
           <Pressable accessibilityRole="button" accessibilityState={{ selected: route === 'family' }} onPress={() => family(0)} style={[s.navButton, route === 'family' && s.navActive]}><Text style={s.navText}>{t('navFamily')}</Text></Pressable>
-        </View>
+        </View>}
         {(storage.status === 'error' || storage.status === 'load-error') && <View accessibilityRole="alert" style={s.error}>
           <Body>{t(storage.status === 'load-error' ? 'loadFailed' : 'saveFailed')}</Body>
           <Button label={t(storage.status === 'load-error' ? 'retryLoad' : 'retrySave')} secondary onPress={storage.status === 'load-error' ? storage.retryLoad : storage.retrySave} />
@@ -68,7 +68,7 @@ function OurGuinea() {
             {route !== 'home' && route !== 'family' && route !== 'results' && <Button label={t('home')} secondary onPress={() => navigate('home')} />}
           </Fade>
         </View>
-        <View style={s.footer}><Text style={s.footerTitle}>{t('footer')}</Text><Body small>{t('privacy')}</Body></View>
+        {route !== 'home' && <View style={s.footer}><Text style={s.footerTitle}>{t('footer')}</Text><Body small>{t('privacy')}</Body></View>}
       </View>
     </ScrollView>
   </SafeAreaView>;

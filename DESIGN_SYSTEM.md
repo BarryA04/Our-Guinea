@@ -7,3 +7,5 @@ Use native system typography for body and a restrained serif display heading. Sp
 Central tokens and reusable Button, Surface, Heading, StatusLabel and Progress components live in src. A shared bilingual interface uses separate en/fr locale files. Decorative sound bars are abstract audio imagery, never claimed to be an authentic waveform or cultural symbol. No tourism stock images or invented motifs.
 
 Use a brief reduced-motion-aware fade for screen changes. Error and success feedback includes text and icons, not colour alone. Content scrolls on small screens and with large text.
+
+Home presents three icon-and-label choices: Share a story (primary), Childhood and Language demo. Keep introductory copy short. Place purpose, privacy and detailed progress inside the expandable About section. Retain text labels for every icon and 48px or larger touch targets. Children use the family activities with an adult.
