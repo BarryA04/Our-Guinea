@@ -2,7 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import { useState } from 'react';
 import { ActivityIndicator, Platform, Pressable, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import { Body, Button, Fade } from './src/components';
+import { Body, Button, Fade, Icon } from './src/components';
 import { translator } from './src/i18n';
 import { theme } from './src/theme';
 import { completeDemo } from './src/state';
@@ -51,8 +51,8 @@ function OurGuinea() {
           </View>
         </View>
         {route !== 'home' && <View style={s.nav}>
-          <Pressable accessibilityRole="button" onPress={() => navigate('home')} style={s.navButton}><Text style={s.navText}>{t('navHome')}</Text></Pressable>
-          <Pressable accessibilityRole="button" accessibilityState={{ selected: route === 'family' }} onPress={() => family(0)} style={[s.navButton, route === 'family' && s.navActive]}><Text style={s.navText}>{t('navFamily')}</Text></Pressable>
+          <Pressable accessibilityRole="button" onPress={() => navigate('home')} style={s.navButton}><Icon name="home-outline" size={20} /><Text style={s.navText}>{t('navHome')}</Text></Pressable>
+          <Pressable accessibilityRole="button" accessibilityState={{ selected: route === 'family' }} onPress={() => family(0)} style={[s.navButton, route === 'family' && s.navActive]}><Icon name="people-outline" size={20} /><Text style={s.navText}>{t('navFamily')}</Text></Pressable>
         </View>}
         {(storage.status === 'error' || storage.status === 'load-error') && <View accessibilityRole="alert" style={s.error}>
           <Body>{t(storage.status === 'load-error' ? 'loadFailed' : 'saveFailed')}</Body>
@@ -83,10 +83,10 @@ const s = StyleSheet.create({
   brandMark: { width: 36, height: 36, backgroundColor: c.forest, borderRadius: 12, flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: 3 },
   markLine: { width: 3, height: 14, borderRadius: 2, backgroundColor: c.cream },
   languages: { flexDirection: 'row', backgroundColor: '#EAE6DB', borderRadius: 12, padding: 3, flexWrap: 'wrap' },
-  languageButton: { minHeight: 44, paddingVertical: 10, paddingHorizontal: 12, justifyContent: 'center', borderRadius: 10 },
+  languageButton: { minHeight: 48, paddingVertical: 10, paddingHorizontal: 12, justifyContent: 'center', borderRadius: 10 },
   languageActive: { backgroundColor: c.forest }, languageText: { fontSize: 13, fontWeight: '600', color: c.forest },
   nav: { flexDirection: 'row', gap: 24, borderBottomWidth: 1, borderBottomColor: c.line, marginBottom: 28 },
-  navButton: { paddingVertical: 13, paddingHorizontal: 4, minHeight: 48, borderBottomWidth: 2, borderBottomColor: 'transparent' },
+  navButton: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingVertical: 13, paddingHorizontal: 4, minHeight: 48, borderBottomWidth: 2, borderBottomColor: 'transparent' },
   navActive: { borderBottomColor: c.forest }, navText: { fontSize: 15, lineHeight: 22, fontWeight: '600', color: c.forest },
   content: { width: '100%' }, reading: { maxWidth: 640, alignSelf: 'center' },
   footer: { marginTop: 40, paddingTop: 24, paddingBottom: 32, borderTopWidth: 1, borderTopColor: c.line, gap: 10 },

@@ -1,14 +1,19 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, type ComponentProps, type ReactNode } from 'react';
 import { AccessibilityInfo, Animated, Platform, Pressable, StyleSheet, Text, View, type ViewStyle } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { theme } from './theme';
 import type { Translator } from './i18n';
 const c = theme.color;
-export function Button({ label, onPress, secondary = false, disabled = false, expanded }: {
-  label: string; onPress: () => void; secondary?: boolean; disabled?: boolean; expanded?: boolean;
+export type IconName = ComponentProps<typeof Ionicons>['name'];
+export function Icon({ name, color = c.forest, size = 24 }: { name: IconName; color?: string; size?: number }) {
+  return <View accessible={false} aria-hidden importantForAccessibility="no-hide-descendants" style={{ flexShrink: 0 }}><Ionicons name={name} color={color} size={size} /></View>;
+}
+export function Button({ label, onPress, secondary = false, disabled = false, expanded, icon }: {
+  label: string; onPress: () => void; secondary?: boolean; disabled?: boolean; expanded?: boolean; icon?: IconName;
 }) {
   return <Pressable accessibilityRole="button" accessibilityState={{ disabled, expanded }} disabled={disabled} onPress={onPress}
     style={({ pressed }) => [ui.button, secondary && ui.secondary, disabled && ui.disabled, pressed && { opacity: 0.78 }]}>
-    <Text style={[ui.buttonText, secondary && { color: c.forest }, disabled && { color: c.muted }]}>{label}</Text>
+    <View style={ui.buttonContents}>{icon && <Icon name={icon} size={20} color={disabled ? c.muted : secondary ? c.forest : c.white} />}<Text style={[ui.buttonText, secondary && { color: c.forest }, disabled && { color: c.muted }]}>{label}</Text></View>
   </Pressable>;
 }
 export function Heading({ children, hero = false, light = false }: { children: ReactNode; hero?: boolean; light?: boolean }) {
@@ -48,13 +53,14 @@ export function Fade({ children }: { children: ReactNode }) {
   return <Animated.View style={{ opacity, gap: 24 }}>{children}</Animated.View>;
 }
 export const ui = StyleSheet.create({
-  heading: { fontSize: 34, lineHeight: 42, fontFamily: Platform.OS === 'ios' ? 'Georgia' : 'serif', color: c.forest },
+  heading: { fontSize: 34, lineHeight: 42, fontWeight: '600', color: c.forest },
   heroHeading: { fontSize: 52, lineHeight: 58 },
   body: { color: c.muted, fontSize: 16, lineHeight: 25 }, small: { fontSize: 14, lineHeight: 22 },
   kicker: { fontSize: 11, lineHeight: 18, letterSpacing: 1.6, fontWeight: '700', color: c.forest },
   surface: { backgroundColor: c.white, padding: 24, borderRadius: 24, borderWidth: 1, borderColor: c.line, gap: 16 },
   button: { minHeight: 52, backgroundColor: c.forest, paddingHorizontal: 20, paddingVertical: 15, borderRadius: 14, alignItems: 'center', justifyContent: 'center' },
-  buttonText: { fontSize: 16, lineHeight: 23, fontWeight: '600', color: c.white, textAlign: 'center' },
+  buttonContents: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 10 },
+  buttonText: { flexShrink: 1, fontSize: 16, lineHeight: 23, fontWeight: '600', color: c.white, textAlign: 'center' },
   secondary: { backgroundColor: c.pale }, disabled: { backgroundColor: '#E4E4DA' },
   label: { alignSelf: 'flex-start', borderRadius: 8, paddingHorizontal: 10, paddingVertical: 6, backgroundColor: c.goldBg },
   labelText: { color: '#624614', fontWeight: '600', fontSize: 11, lineHeight: 17, letterSpacing: 0.5 },

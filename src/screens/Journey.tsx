@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from 'react-native';
-import { Body, Button, Heading, Kicker, Label, Progress, Surface } from '../components';
+import { Body, Button, Heading, Icon, Kicker, Label, Progress, Surface } from '../components';
 import { demoChoices, type Choice } from '../content/learning';
 import type { Translator } from '../i18n';
 import type { Route } from '../navigation';
@@ -43,11 +43,11 @@ export function Journey(p: JourneyProps) {
           style={({ pressed }) => [s.choice, p.choice === option.id && s.selected, pressed && { opacity: 0.8 }]}>
           <Text style={[s.letter, p.choice === option.id && { backgroundColor: c.forest, color: c.white }]}>{String.fromCharCode(65 + i)}</Text>
           <Text style={s.choiceText}>{t(option.label)}</Text>
-          {p.choice === option.id && <Text style={s.check} accessibilityElementsHidden>✓</Text>}
+          {p.choice === option.id && <Icon name="checkmark" size={22} />}
         </Pressable>)}
       </View>
       {p.feedback && <View accessibilityRole="alert" accessibilityLiveRegion="polite" style={[s.feedback, p.feedback === 'wrong' && { backgroundColor: c.errorBg }]}>
-        <Text style={s.feedbackTitle}>{p.feedback === 'correct' ? '✓ ' : '↺ '}{t(p.feedback === 'correct' ? 'correctTitle' : 'wrongTitle')}</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}><Icon name={p.feedback === 'correct' ? 'checkmark-circle-outline' : 'refresh-outline'} /><Text style={[s.feedbackTitle, { flex: 1 }]}>{t(p.feedback === 'correct' ? 'correctTitle' : 'wrongTitle')}</Text></View>
         <Body>{t(p.feedback === 'correct' ? 'correctBody' : 'wrongBody')}</Body>
       </View>}
       {!p.feedback && <Button label={t('check')} disabled={!p.choice} onPress={p.check} />}
@@ -65,7 +65,7 @@ export function Journey(p: JourneyProps) {
       <Button label={t('planMission')} secondary onPress={() => p.finish('planned')} />
     </>}
     {route === 'results' && <>
-      <View style={s.resultMark}><Text style={{ color: c.forest, fontSize: 32 }}>✓</Text></View>
+      <View style={s.resultMark}><Icon name="checkmark" size={36} /></View>
       <Kicker>{t('resultsKicker')}</Kicker><Heading>{t('resultsTitle')}</Heading><Body>{t('resultsBody')}</Body>
       <Surface>
         <View style={s.resultRow}><Body>{t('resultDemo')}</Body><Text style={s.resultStatus}>{t('completed')}</Text></View>
@@ -88,7 +88,7 @@ const s = StyleSheet.create({
   choiceText: { color: c.ink, fontSize: 17, lineHeight: 25, flex: 1 }, check: { color: c.forest, fontSize: 20 },
   feedback: { backgroundColor: c.pale, borderRadius: 18, padding: 20, gap: 8 },
   feedbackTitle: { color: c.ink, fontWeight: '700', fontSize: 18, lineHeight: 26 },
-  quote: { color: c.forest, fontFamily: 'serif', fontSize: 25, lineHeight: 35, marginBottom: 12 },
+  quote: { color: c.forest, fontWeight: '500', fontSize: 25, lineHeight: 35, marginBottom: 12 },
   number: { color: c.forest, fontWeight: '700', fontSize: 15, paddingTop: 2 },
   resultMark: { width: 72, height: 72, borderRadius: 36, backgroundColor: '#E9D6A5', alignItems: 'center', justifyContent: 'center' },
   resultRow: { gap: 6, borderBottomColor: c.line, borderBottomWidth: 1, paddingBottom: 14 },

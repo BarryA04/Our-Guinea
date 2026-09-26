@@ -12,3 +12,5 @@
 - 2026-09-27: Superseding the earlier no-commits note, preserve the existing prototype in commit 3a06822 before simplifying Home. Use the user-provided BarryA04/Our-Guinea repository and verified GitHub noreply author locally.
 - Home feedback: too much text and too many simultaneous messages. Prioritize family storytelling, retain the childhood shortcut and clearly labelled language preview, add Ionicons, and disclose longer explanations through About. No new child accounts or unverified cultural imagery.
 - Repair the existing Node test command and remove leftover TypeScript assertions from the .mjs test file so validation runs.
+
+- 2026-09-27: Polish typography and icon consistency after user review. Keep the serif wordmark, use system sans-serif activity headings, centralize decorative icons, replace text checkmarks, and add labelled navigation icons. Stack Home cards on narrow phones and enlarge their descriptions.

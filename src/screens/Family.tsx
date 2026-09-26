@@ -18,13 +18,13 @@ export function Family({ t, language, initialIndex, home, narrow }: { t: Transla
         <Body small>{t('questionCount', { current: index + 1, total: familyPrompts.length })}</Body>
         <Text accessibilityRole="header" style={{ fontSize: 26, lineHeight: 36, color: theme.color.forest }}>{item[language].question}</Text>
       </View>
-      <Button label={t(expanded ? 'followClose' : 'followOpen')} secondary expanded={expanded} onPress={() => setExpanded(!expanded)} />
+      <Button icon={expanded ? 'chevron-up' : 'chevron-down'} label={t(expanded ? 'followClose' : 'followOpen')} secondary expanded={expanded} onPress={() => setExpanded(!expanded)} />
       {expanded && <View accessibilityLiveRegion="polite" style={{ gap: 14 }}>{item[language].followUps.map((q) => <Body key={q}>• {q}</Body>)}</View>}
     </Surface>
     <View style={[ui.row, narrow && { flexDirection: 'column' }]}>
-      <View style={{ flex: 1 }}><Button label={t('previous')} secondary disabled={index === 0} onPress={() => change(Math.max(0, index - 1))} /></View>
-      <View style={{ flex: 1 }}><Button label={t(index === familyPrompts.length - 1 ? 'again' : 'next')} onPress={() => change((index + 1) % familyPrompts.length)} /></View>
+      <View style={{ flex: 1 }}><Button icon="arrow-back" label={t('previous')} secondary disabled={index === 0} onPress={() => change(Math.max(0, index - 1))} /></View>
+      <View style={{ flex: 1 }}><Button icon={index === familyPrompts.length - 1 ? 'refresh' : 'arrow-forward'} label={t(index === familyPrompts.length - 1 ? 'again' : 'next')} onPress={() => change((index + 1) % familyPrompts.length)} /></View>
     </View>
-    <Body small>{t('familyHint')}</Body><Button label={t('home')} secondary onPress={home} />
+    <Body small>{t('familyHint')}</Body><Button icon="home-outline" label={t('home')} secondary onPress={home} />
   </>;
 }
