@@ -12,3 +12,5 @@ Home presents three icon-and-label choices: Share a story (primary), Childhood a
 
 
 Use the shared Ionicons component for navigation and status symbols; decorative icons are hidden from assistive technology and controls retain text labels. Home card descriptions use 15px text. Below 400px or with larger system text, stack Home choices vertically. Language controls have 48px touch targets.
+
+Activity artwork uses rounded native shapes and filled Ionicons in mango, terracotta, forest and sky blue. The shared Artwork component maps each family question to its subject and is decorative. Navigation remains simple. These are generic activity symbols, not claims about Guinean cultural practices.

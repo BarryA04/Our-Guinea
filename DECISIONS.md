@@ -14,3 +14,5 @@
 - Repair the existing Node test command and remove leftover TypeScript assertions from the .mjs test file so validation runs.
 
 - 2026-09-27: Polish typography and icon consistency after user review. Keep the serif wordmark, use system sans-serif activity headings, centralize decorative icons, replace text checkmarks, and add labelled navigation icons. Stack Home cards on narrow phones and enlarge their descriptions.
+
+- 2026-09-27: Add colourful composed vector artwork to Home and all six family questions. Reuse bundled Ionicons and native shapes for offline Android/web rendering without new dependencies or remote images.

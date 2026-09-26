@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import { Body, Button, Heading, Kicker, Surface, ui } from '../components';
 import { familyPrompts } from '../content/family';
 import type { Language, Translator } from '../i18n';
+import { Artwork } from '../Artwork';
 import { theme } from '../theme';
 export function Family({ t, language, initialIndex, home, narrow }: { t: Translator; language: Language; initialIndex: number; home: () => void; narrow: boolean }) {
   const [index, setIndex] = useState(initialIndex);
@@ -14,7 +15,7 @@ export function Family({ t, language, initialIndex, home, narrow }: { t: Transla
     <Body>{t('familyInstruction')}</Body>
     <Surface>
       <View accessibilityLiveRegion="polite" style={{ gap: 16 }}>
-        <Kicker>{t(item.collection)}</Kicker>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between', gap: 12 }}><Artwork kind={item.id} compact /><Kicker>{t(item.collection)}</Kicker></View>
         <Body small>{t('questionCount', { current: index + 1, total: familyPrompts.length })}</Body>
         <Text accessibilityRole="header" style={{ fontSize: 26, lineHeight: 36, color: theme.color.forest }}>{item[language].question}</Text>
       </View>

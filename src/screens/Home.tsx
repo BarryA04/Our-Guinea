@@ -3,6 +3,7 @@ import { Pressable, StyleSheet, Text, View, useWindowDimensions } from 'react-na
 import { Body, Icon, Kicker, Surface } from '../components';
 import type { Translator } from '../i18n';
 import type { SavedState } from '../state';
+import { Artwork } from '../Artwork';
 import { theme } from '../theme';
 
 export function Home({ t, data, wide, start, family }: { t: Translator; data: SavedState; wide: boolean; start: () => void; family: (index: number) => void }) {
@@ -17,7 +18,7 @@ export function Home({ t, data, wide, start, family }: { t: Translator; data: Sa
     <Pressable accessibilityRole="button" accessibilityLabel={t('homeShare')} accessibilityHint={t('homeShareHint')}
       onPress={() => family(0)} style={({ pressed }) => [s.primary, pressed && s.pressed]}>
       <View style={s.primaryTop}>
-        <View style={s.primaryIcon}><Icon name="chatbubbles-outline" color={c.cream} size={42} /></View>
+        <Artwork kind="memory" />
         <Icon name="arrow-forward" color={c.cream} size={26} />
       </View>
       <Text style={s.primaryTitle}>{t('homeShare')}</Text>
@@ -27,13 +28,13 @@ export function Home({ t, data, wide, start, family }: { t: Translator; data: Sa
     <View style={[s.options, (width < 400 || fontScale > 1.3) && { flexDirection: 'column' }]}>
       <Pressable accessibilityRole="button" accessibilityLabel={t('homeChildhood')} accessibilityHint={t('homeChildhoodHint')}
         onPress={() => family(3)} style={({ pressed }) => [s.option, s.childhood, pressed && s.pressed]}>
-        <View style={s.iconRow}><Icon name="sunny-outline" color={c.forest} /><Icon name="chevron-forward" color={c.forest} size={18} /></View>
+        <View style={s.iconRow}><Artwork kind="games" compact /><Icon name="chevron-forward" color={c.forest} size={18} /></View>
         <Text style={s.optionTitle}>{t('homeChildhood')}</Text>
         <Text style={s.optionHint}>{t('homeChildhoodHint')}</Text>
       </Pressable>
       <Pressable accessibilityRole="button" accessibilityLabel={t('homeLanguage')} accessibilityHint={t('homeLanguageHint')}
-        onPress={start} style={({ pressed }) => [s.option, pressed && s.pressed]}>
-        <View style={s.iconRow}><Icon name="headset-outline" color={c.forest} /><Icon name="chevron-forward" color={c.forest} size={18} /></View>
+        onPress={start} style={({ pressed }) => [s.option, s.language, pressed && s.pressed]}>
+        <View style={s.iconRow}><Artwork kind="language" compact /><Icon name="chevron-forward" color={c.forest} size={18} /></View>
         <Text style={s.optionTitle}>{t('homeLanguage')}</Text>
         <Text style={s.optionHint}>{t('homeLanguageHint')}</Text>
       </Pressable>
@@ -63,11 +64,11 @@ const s = StyleSheet.create({
   title: { fontSize: 32, lineHeight: 39, fontWeight: '600', color: c.forest },
   primary: { backgroundColor: c.forest, padding: 24, borderRadius: 24, gap: 10, minHeight: 190 },
   primaryTop: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 },
-  primaryIcon: { width: 62, height: 58, alignItems: 'center', justifyContent: 'center', borderRadius: 18, backgroundColor: '#2B5D4D' },
   primaryTitle: { color: c.white, fontSize: 27, lineHeight: 34, fontWeight: '600' },
   primaryHint: { color: '#E4EADC', fontSize: 15, lineHeight: 23 },
   options: { flexDirection: 'row', gap: 12 },
   option: { flex: 1, backgroundColor: c.white, borderWidth: 1, borderColor: c.line, borderRadius: 20, padding: 16, gap: 10, minHeight: 148 },
+  language: { backgroundColor: '#E6F1F5', borderColor: '#D1E4EA' },
   childhood: { backgroundColor: '#F1E3C4', borderColor: '#F1E3C4' },
   iconRow: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 4 },
   optionTitle: { color: c.forest, fontSize: 19, lineHeight: 25, fontWeight: '600' },
