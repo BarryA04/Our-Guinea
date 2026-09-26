@@ -57,9 +57,10 @@ export const fr: Record<TranslationKey, string> = {
   loadFailed: 'Impossible de lire les préférences enregistrées. Vous pouvez continuer, mais votre progression antérieure peut être indisponible.',
   retrySave: 'Réessayer l’enregistrement', retryLoad: 'Réessayer le chargement', restart: 'Explorer à nouveau',
   familyHeading: 'Histoires de famille', familySubtitle: 'Commençons par une conversation.',
-  familyInstruction: 'Posez cette question à un proche qui a un lien avec la Guinée :',
+  familyInstruction: 'Pose la question à quelqu’un de ta famille ou à un proche :',
+  familyFinish: 'Terminer', familyThanks: 'Merci pour ce partage', familyThanksBody: 'Chaque histoire nous rapproche de nos racines. Reviens quand tu veux pour un autre souvenir.',
   connections: 'Nos liens', questionCount: 'Question {current} sur {total}',
-  followOpen: 'Poursuivre la conversation', followClose: 'Masquer les pistes de discussion', previous: 'Question précédente', next: 'Question suivante', again: 'Recommencer',
+  followOpen: 'Raconte-moi', followClose: 'Voir moins', previous: 'Question précédente', next: 'Question suivante', again: 'Recommencer',
   familyHint: 'Prenez le temps d’écouter. Vous pouvez aussi réfléchir à un souvenir personnel.',
   footer: 'DES HISTOIRES EN PARTAGE. UNE PLACE POUR TOUS.', brandAccessibility: 'Accueil Our Guinea', progressAccessibility: 'Progression de l’activité',
 };
