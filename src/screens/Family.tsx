@@ -1,0 +1,30 @@
+import { useState } from 'react';
+import { Text, View } from 'react-native';
+import { Body, Button, Heading, Kicker, Surface, ui } from '../components';
+import { familyPrompts } from '../content/family';
+import type { Language, Translator } from '../i18n';
+import { theme } from '../theme';
+export function Family({ t, language, initialIndex, home, narrow }: { t: Translator; language: Language; initialIndex: number; home: () => void; narrow: boolean }) {
+  const [index, setIndex] = useState(initialIndex);
+  const [expanded, setExpanded] = useState(false);
+  const item = familyPrompts[index];
+  const change = (next: number) => { setIndex(next); setExpanded(false); };
+  return <>
+    <Kicker>{t('familyKicker')}</Kicker><Heading>{t('familyHeading')}</Heading>
+    <Body>{t('familyInstruction')}</Body>
+    <Surface>
+      <View accessibilityLiveRegion="polite" style={{ gap: 16 }}>
+        <Kicker>{t(item.collection)}</Kicker>
+        <Body small>{t('questionCount', { current: index + 1, total: familyPrompts.length })}</Body>
+        <Text accessibilityRole="header" style={{ fontSize: 26, lineHeight: 36, color: theme.color.forest }}>{item[language].question}</Text>
+      </View>
+      <Button label={t(expanded ? 'followClose' : 'followOpen')} secondary expanded={expanded} onPress={() => setExpanded(!expanded)} />
+      {expanded && <View accessibilityLiveRegion="polite" style={{ gap: 14 }}>{item[language].followUps.map((q) => <Body key={q}>• {q}</Body>)}</View>}
+    </Surface>
+    <View style={[ui.row, narrow && { flexDirection: 'column' }]}>
+      <View style={{ flex: 1 }}><Button label={t('previous')} secondary disabled={index === 0} onPress={() => change(Math.max(0, index - 1))} /></View>
+      <View style={{ flex: 1 }}><Button label={t(index === familyPrompts.length - 1 ? 'again' : 'next')} onPress={() => change((index + 1) % familyPrompts.length)} /></View>
+    </View>
+    <Body small>{t('familyHint')}</Body><Button label={t('home')} secondary onPress={home} />
+  </>;
+}
